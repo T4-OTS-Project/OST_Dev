@@ -1,11 +1,11 @@
-name: Terraform Check
+name: Terraform Check NS
 
 on:
   push:
-    branches:
-      - Vika
+    branches: [ Vika ]
 
-workflow_dispatch:
+
+  workflow_dispatch:
 jobs:
   terraform-check:
     runs-on: ubuntu-latest
