@@ -1,7 +1,4 @@
-env:
-  IMAGE_NAME: ots-image
-  ID_PROJECT: terraform-project-vm
-  PROJECT_REPO: ots-project-repo
+
 
 name: Test
 on:
