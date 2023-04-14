@@ -1,4 +1,4 @@
 module ots {
-    source = "./module"
+    source = "./modules/Namespace"
     name = "ots-ns"
 }
