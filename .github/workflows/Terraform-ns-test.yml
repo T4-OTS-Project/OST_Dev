@@ -46,4 +46,4 @@ jobs:
     - name: Terraform apply
       working-directory: modules/Namespace
       run: |- 
-        terraform apply     
+        terraform apply -auto-approve  
