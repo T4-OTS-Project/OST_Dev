@@ -2,12 +2,13 @@ name: Terraform Check NS
 
 on:
   push:
-    branches: [ Vika ]
+    branches: [ "Vika" ]
 
 
   workflow_dispatch:
 jobs:
   terraform-check:
+    name: Test terraform code
     runs-on: ubuntu-latest
 
     steps:
