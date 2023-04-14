@@ -44,6 +44,7 @@ jobs:
         cd terraform-registry 
         terraform destroy -auto-approve -input=false
         terraform apply -auto-approve -input=false
+        
       
     - name: Build Docker Image    
       run: |-
