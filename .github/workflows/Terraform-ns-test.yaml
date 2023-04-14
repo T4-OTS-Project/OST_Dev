@@ -1,0 +1,38 @@
+name: Terraform Check
+
+on:
+  push:
+    branches:
+      - Vika
+
+workflow_dispatch:
+jobs:
+  terraform-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.1.9
+      - name: Configure GCP credentials
+        uses: google-github-actions/setup-gcloud@v0.3.2
+        with:
+          service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+          project_id: ${{ secrets.ID_PROJECT }}
+
+      - name: Initialize Terraform code
+        working-directory: /modules/Namespace
+        run: |
+          terraform init
+  
+      - name: FMT Terraform code
+        run: |
+          terraform format  
+        
+      - name: Apply Terraform code
+        run: |
+          terraform apply  
