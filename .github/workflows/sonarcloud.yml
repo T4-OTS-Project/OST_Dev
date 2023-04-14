@@ -2,7 +2,7 @@ name: Sonarcloud scan
 on:
   push:
     branches:
-      - master
+      - Vika
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
