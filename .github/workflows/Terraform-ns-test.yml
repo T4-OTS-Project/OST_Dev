@@ -31,10 +31,6 @@ jobs:
         with:
           credentials_json: '${{ secrets.SERVICE_ACCOUNT_KEY }}'
           
-      - name: Configure Backend
-        working-directory: "./modules/Namespace/module"
-        run: |
-          bash setenv.sh   
           
       - id: 'auth-to-k8s'
         uses: 'google-github-actions/auth@v1'
