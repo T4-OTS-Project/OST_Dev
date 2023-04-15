@@ -1,14 +1,10 @@
 env:
   region:             "us-central1"
-  app_name:           "ots"
-  app_version:        ${GITHUB_SHA} 
-  app_port:            "3000"
   project_id:         "${{ secrets.PROJECT_ID }}"
-  repository:         "us-central1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/ots-project-repo"
   cluster_name:       "project-cluster"
   environment:        "dev"
 
-name: Test
+name: Test NS
 on:
   push:
     branches: [ Vika ]
