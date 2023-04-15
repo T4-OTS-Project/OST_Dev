@@ -41,7 +41,19 @@ jobs:
 
       # The KUBECONFIG env var is automatically exported and picked up by kubectl.
       - id: 'kubeconfig'
-        run: 'mkdir ~/.kube && cat $KUBECONFIG > ~/.kube/config'         
+        run: 'mkdir ~/.kube && cat $KUBECONFIG > ~/.kube/config'   
+        
+      - name: Check if namespace exists
+        run: |
+          if kubectl get namespaces | grep ots-ns; then
+            echo "Namespace exists, skipping terraform apply"
+            exit 0
+          else
+            echo "Namespace does not exist, running terraform apply"
+            exit 1
+          fi
+        env:
+          NAMESPACE: "ots-ns"        
         
       - name: Terraform init
         working-directory: ./modules/Namespace/module
@@ -60,3 +72,8 @@ jobs:
         working-directory: ./modules/Namespace/module
         run: |- 
           terraform apply -auto-approve  
+        if: steps.check.outputs.exit-code == '1'
+        
+        
+          
+          
