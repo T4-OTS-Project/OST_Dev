@@ -1,6 +1,6 @@
 resource "kubernetes_namespace" "OTS" {
   metadata {
-    name = var.name
+    name = ots-ns
   }
 }
 
