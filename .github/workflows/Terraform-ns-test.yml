@@ -45,7 +45,7 @@ jobs:
         
         
       - name: Terraform init
-        working-directory: ./modules/Namespace/module
+        working-directory: ./modules/Namespace
         run: |- 
           terraform init
       
@@ -53,12 +53,12 @@ jobs:
         run: echo "$GITHUB_REF"
 
       - name: Terraform validate
-        working-directory: ./modules/Namespace/module
+        working-directory: ./modules/Namespace
         run: |- 
           terraform validate
 
       - name: Terraform apply
-        working-directory: ./modules/Namespace/module
+        working-directory: ./modules/Namespace
         run: |- 
           terraform apply -auto-approve  
       
