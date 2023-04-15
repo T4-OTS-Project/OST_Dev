@@ -51,9 +51,7 @@ jobs:
           else
             echo "Namespace does not exist, running terraform apply"
             exit 1
-          fi
-        env:
-          NAMESPACE: "ots-ns"        
+                
         
       - name: Terraform init
         working-directory: ./modules/Namespace/module
@@ -72,6 +70,8 @@ jobs:
         working-directory: ./modules/Namespace/module
         run: |- 
           terraform apply -auto-approve  
+        if: steps.check.outputs.exit-code == '1'  
+          
        
         
         
