@@ -72,7 +72,7 @@ jobs:
         working-directory: ./modules/Namespace/module
         run: |- 
           terraform apply -auto-approve  
-        if: steps.check.outputs.exit-code == '1'
+       
         
         
           
