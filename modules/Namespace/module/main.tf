@@ -16,3 +16,4 @@ resource "kubernetes_resource_quota" "ots-ns-quota" {
     scopes = ["BestEffort"]
   }
 }
+
