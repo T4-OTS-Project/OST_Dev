@@ -1,4 +1,12 @@
-
+env:
+  region:             "us-central1"
+  app_name:           "ots"
+  app_version:        ${GITHUB_SHA} 
+  app_port:            "3000"
+  project_id:         "${{ secrets.PROJECT_ID }}"
+  repository:         "us-central1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/ots-project-repo"
+  cluster_name:       "project-cluster"
+  environment:        "dev"
 
 name: Test
 on:
@@ -11,36 +19,52 @@ jobs:
     name: check  NS module
     runs-on: ubuntu-latest
     
-    defaults:
-      run:
-        shell: bash
+ 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
 
-    - uses: google-github-actions/setup-gcloud@v0
-      with:
-        service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
-        project_id: ${{ secrets.ID_PROJECT }}
-        export_default_credentials: true
-    - uses: hashicorp/setup-terraform@v2
-      with:
-        terraform_version: 1.1.9
+      # Authenticate to GCP
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.SERVICE_ACCOUNT_KEY }}'
+          
+      - name: Configure Backend
+        working-directory: "./modules/Namespace/module"
+        run: |
+          bash setenv.sh   
+          
+      - id: 'auth-to-k8s'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.SERVICE_ACCOUNT }}'
+
+      - id: 'get-credentials'
+        uses: 'google-github-actions/get-gke-credentials@v1'
+        with:
+          cluster_name: 'project-cluster'
+          location: 'us-central1'
+
+      # The KUBECONFIG env var is automatically exported and picked up by kubectl.
+      - id: 'kubeconfig'
+        run: 'mkdir ~/.kube && cat $KUBECONFIG > ~/.kube/config'         
         
-    - name: Terraform init
-      working-directory: ./modules/Namespace/module
-      run: |- 
-        terraform init
+      - name: Terraform init
+        working-directory: ./modules/Namespace/module
+        run: |- 
+          terraform init
       
-    - name: Debug
-      run: echo "$GITHUB_REF"
+      - name: Debug
+        run: echo "$GITHUB_REF"
 
-    - name: Terraform validate
-      working-directory: ./modules/Namespace/module
-      run: |- 
-        terraform validate
-        
-    - name: Terraform apply
-      working-directory: ./modules/Namespace/module
-      run: |- 
-        terraform apply -auto-approve  
+      - name: Terraform validate
+        working-directory: ./modules/Namespace/module
+        run: |- 
+          terraform validate
+
+      - name: Terraform apply
+        working-directory: ./modules/Namespace/module
+        run: |- 
+          terraform apply -auto-approve  
