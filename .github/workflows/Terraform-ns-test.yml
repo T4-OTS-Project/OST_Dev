@@ -51,6 +51,8 @@ jobs:
           else
             echo "Namespace does not exist, running terraform apply"
             exit 1
+          fi
+
                 
         
       - name: Terraform init
