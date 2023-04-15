@@ -7,7 +7,7 @@ terraform {
 
 module ots-ns {
     source = "./module"
-    name = "ots-ns"
+    name = var.name
 }
     
 
