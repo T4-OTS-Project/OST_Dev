@@ -3,6 +3,6 @@ terraform {
     bucket  = "terraform-project-vm-bucket"
     prefix  = "/terraform2/state/ns"
     project = "terraform-project-vm"
-    region  = "us-central1"
+    region  = "Multi-region"
   }
 }
