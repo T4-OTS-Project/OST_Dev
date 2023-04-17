@@ -59,7 +59,7 @@ jobs:
       - name: Terraform apply
         working-directory: ./modules/Namespace
         run: |- 
-          terraform destroy -auto-approve  
+          terraform apply -auto-approve  
 
           
        
