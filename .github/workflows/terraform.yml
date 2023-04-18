@@ -1,10 +1,11 @@
-name: Test1_dblazhko
+name: Test2_dblazhko
 
 on:
   push:
     branches:
       - dblazhko
-
+      
+  workflow_dispatch:
 jobs:
   terraform-check:
     runs-on: ubuntu-latest
