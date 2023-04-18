@@ -1,38 +1,38 @@
-# name: Test4_dblazhko
+name: Test4_dblazhko
 
-# on:
-#   push:
-#     branches:
-#       - dblazhko
+on:
+  push:
+    branches:
+      - dblazhko
       
-#   workflow_dispatch:
-# jobs:
-#   terraform-check:
-#     runs-on: ubuntu-latest
+  workflow_dispatch:
+jobs:
+  terraform-check:
+    runs-on: ubuntu-latest
 
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-#       - name: Setup Terraform
-#         uses: hashicorp/setup-terraform@v1
-#         with:
-#           terraform_version: 1.1.9
-#       - name: Configure GCP credentials
-#         uses: google-github-actions/setup-gcloud@v0
-#         with:
-#           service_account_key: ${{ secrets.EASTPOST_SA_KEY }}
-#           project_id: ${{ secrets.ID_PROJECT }}
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.1.9
+      - name: Configure GCP credentials
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          service_account_key: ${{ secrets.EASTPOST_SA_KEY }}
+          project_id: ${{ secrets.ID_PROJECT }}
 
-#       - name: Initialize Terraform code
-#         working-directory: /modules/Namespace
-#         run: |
-#           terraform init
+      - name: Initialize Terraform code
+        working-directory: /modules/Namespace
+        run: |
+          terraform init
   
-#       - name: FMT Terraform code
-#         run: |
-#           terraform format  
+      - name: FMT Terraform code
+        run: |
+          terraform format  
         
-#       - name: Apply Terraform code
-#         run: |
-#           terraform apply  
+      - name: Apply Terraform code
+        run: |
+          terraform apply  
