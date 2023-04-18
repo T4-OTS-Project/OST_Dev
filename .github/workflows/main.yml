@@ -28,8 +28,8 @@ jobs:
         token: ${{ secrets.VAULT_TOKEN }}
         #caCertificate: ${{ secrets.VAULT_CA_CERT }}
         secrets: |
-            secrets/ots/show/main/service_account_key | EASTPOST_SA_KEY ;
-            secrets/ots/show/main/project_id | ID_PROJECT ;
+            secrets/ots/main service_account_key | EASTPOST_SA_KEY ;
+            secrets/ots/main project_id | ID_PROJECT ;
 
 
     - name: Checkout
