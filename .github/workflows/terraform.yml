@@ -1,4 +1,4 @@
-name: Terraform Check
+name: Test1_dblazhko
 
 on:
   push:

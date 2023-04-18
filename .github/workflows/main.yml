@@ -3,7 +3,7 @@ env:
   ID_PROJECT: terraform-project-eastpost
   PROJECT_REPO: ots-project-repo
 
-name: Test
+name: Test_image_dblazhko
 on:
   push:
     branches: [ dblazhko ]
