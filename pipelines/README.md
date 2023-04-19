@@ -1,6 +1,6 @@
-<<<<<<< HEAD
+
  
-README for GitHub Actions Workflow
+            README for GitHub Actions Workflow
 This GitHub Actions Workflow performs the following tasks:
 
 Checks out the repository
