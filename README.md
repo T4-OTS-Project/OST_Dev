@@ -1,4 +1,4 @@
-#OTS DOCKER BUILD
+# OTS DOCKER BUILD
 
 OTS is a one-time-secret sharing platform. The secret is encrypted with a symmetric 256bit AES encryption in the browser before being sent to the server. Afterwards an URL containing the ID of the secret and the password is generated. The password is never sent to the server so the server will never be able to decrypt the secrets it delivers with a reasonable effort. Also the secret is immediately deleted on the first read.
 Features
@@ -11,47 +11,47 @@ Features
 
 1) Clone  original  application repo git@github.com:Luzifer/ots.git to your Github repository
 2) Check all instructions for the  original  application and  for Dockerfile in documentation 
-### Original Docker  file will look like  code  below:
+## Original Docker  file will look like  code  below:
 
-FROM luzifer/archlinux as builder
+### FROM luzifer/archlinux as builder
 
-ENV CGO_ENABLED=0 \
-    GOPATH=/go
+### ENV CGO_ENABLED=0 \
+    ### GOPATH=/go
 
-COPY . /go/src/github.com/Luzifer/ots
-WORKDIR /go/src/github.com/Luzifer/ots
+### COPY . /go/src/github.com/Luzifer/ots
+### WORKDIR /go/src/github.com/Luzifer/ots
 
-RUN set -ex \
- && pacman --noconfirm -Syy \
-      curl \
-      git \
-      go \
-      make \
-      nodejs-lts-fermium \
-      npm \
-      tar \
-      unzip \
- && make -C src -f ../Makefile generate-inner \
- && make download_libs generate-apidocs \
- && go install \
-      -ldflags "-X main.version=$(git describe --tags --always || echo dev)" \
-      -mod=readonly
+### RUN set -ex \
+ ### && pacman --noconfirm -Syy \
+      ### curl \
+      ### git \
+      ### go \
+      ### make \
+      ### nodejs-lts-fermium \
+      ### npm \
+      ### tar \
+      ### unzip \
+ ### && make -C src -f ../Makefile generate-inner \
+ ### && make download_libs generate-apidocs \
+ ### && go install \
+      ### -ldflags "-X main.version=$(git describe --tags --always || echo dev)" \
+      ### -mod=readonly
 
 
-FROM alpine:latest
+### FROM alpine:latest
 
-LABEL maintainer "Knut Ahlers <knut@ahlers.me>"
+### LABEL maintainer "Knut Ahlers <knut@ahlers.me>"
 
-RUN set -ex \
- && apk --no-cache add \
-      ca-certificates
+### RUN set -ex \
+ ### && apk --no-cache add \
+      ### ca-certificates
 
-COPY --from=builder /go/bin/ots /usr/local/bin/ots
+### COPY --from=builder /go/bin/ots /usr/local/bin/ots
 
-EXPOSE 3000
+### EXPOSE 3000
 
-ENTRYPOINT ["/usr/local/bin/ots"]
-CMD ["--"]
+### ENTRYPOINT ["/usr/local/bin/ots"]
+### CMD ["--"]
 
 
 
