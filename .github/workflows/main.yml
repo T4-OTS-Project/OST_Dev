@@ -25,8 +25,9 @@ jobs:
       uses: hashicorp/vault-action@v2
       with:
         url: https://vault.eastpost.org:8200
+        tlsSkipVerify: true
         token: ${{ secrets.VAULT_TOKEN }}
-        caCertificate: ${{ secrets.VAULT_CA_CERT }}
+        #caCertificate: ${{ secrets.VAULT_CA_CERT }}
         secrets: |
             secrets/ots/main service_account_key | EASTPOST_SA_KEY ;
             secrets/ots/main project_id | ID_PROJECT ;
