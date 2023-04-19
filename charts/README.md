@@ -7,7 +7,8 @@ Create a Helm chart for the application you want to deploy. Follow these steps:
 ### cd chart
 
 2) Create a new Helm chart with the following command:
-helm create ots-chart
+
+### helm create ots-chart
 
 3) Open the values.yaml file in the ots-chart directory and configure it according to your application's requirements.
 
