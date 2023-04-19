@@ -26,7 +26,7 @@ jobs:
       with:
         url: https://vault.eastpost.org:8200
         tlsSkipVerify: true
-        token: ${{ secrets.VAULT_TOKEN }}
+        token: \${{ secrets.VAULT_TOKEN }}
         #caCertificate: ${{ secrets.VAULT_CA_CERT }}
         secrets: |
             secrets/ots/main service_account_key | EASTPOST_SA_KEY ;
