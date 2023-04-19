@@ -13,46 +13,45 @@ Features
 2) Check all instructions for the  original  application and  for Dockerfile in documentation 
 ## Original Docker  file will look like  code  below:
 
-### FROM luzifer/archlinux as builder
+FROM luzifer/archlinux as builder
 
-### ENV CGO_ENABLED=0 \
-    ### GOPATH=/go
+ENV CGO_ENABLED=0 \
+    GOPATH=/go
 
-### COPY . /go/src/github.com/Luzifer/ots
-### WORKDIR /go/src/github.com/Luzifer/ots
+COPY . /go/src/github.com/Luzifer/ots
+WORKDIR /go/src/github.com/Luzifer/ots
 
-### RUN set -ex \
- ### && pacman --noconfirm -Syy \
-      ### curl \
-      ### git \
-      ### go \
-      ### make \
-      ### nodejs-lts-fermium \
-      ### npm \
-      ### tar \
-      ### unzip \
- ### && make -C src -f ../Makefile generate-inner \
- ### && make download_libs generate-apidocs \
- ### && go install \
-      ### -ldflags "-X main.version=$(git describe --tags --always || echo dev)" \
-      ### -mod=readonly
+RUN set -ex \
+ && pacman --noconfirm -Syy \
+      curl \
+      git \
+      go \
+      make \
+      nodejs-lts-fermium \
+      npm \
+      tar \
+      unzip \
+ && make -C src -f ../Makefile generate-inner \
+ && make download_libs generate-apidocs \
+ && go install \
+      -ldflags "-X main.version=$(git describe --tags --always || echo dev)" \
+      -mod=readonly
 
 
-### FROM alpine:latest
+FROM alpine:latest
 
-### LABEL maintainer "Knut Ahlers <knut@ahlers.me>"
+LABEL maintainer "Knut Ahlers <knut@ahlers.me>"
 
-### RUN set -ex \
- ### && apk --no-cache add \
-      ### ca-certificates
+RUN set -ex \
+ && apk --no-cache add \
+      ca-certificates
 
-### COPY --from=builder /go/bin/ots /usr/local/bin/ots
+COPY --from=builder /go/bin/ots /usr/local/bin/ots
 
-### EXPOSE 3000
+EXPOSE 3000
 
-### ENTRYPOINT ["/usr/local/bin/ots"]
-### CMD ["--"]
-
+ENTRYPOINT ["/usr/local/bin/ots"]
+CMD ["--"]
 
 
 This Dockerfile builds an image based on luzifer/archlinux as the builder image and alpine:latest as the final image. The resulting image contains an installation of a Go application called ots (One-Time-Secret), which is built using the source code located at github.com/Luzifer/ots.
