@@ -54,7 +54,7 @@ ENTRYPOINT ["/usr/local/bin/ots"]
 CMD ["--"]
 
 
-This Dockerfile builds an image based on luzifer/archlinux as the builder image and alpine:latest as the final image. The resulting image contains an installation of a Go application called ots (One-Time-Secret), which is built using the source code located at github.com/Luzifer/ots.
+## This Dockerfile builds an image based on luzifer/archlinux as the builder image and alpine:latest as the final image. The resulting image contains an installation of a Go application called ots (One-Time-Secret), which is built using the source code located at github.com/Luzifer/ots.
 
 ## Usage
 #### To use this image, you can build it using the following command:
