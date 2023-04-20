@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: us-central1-docker.pkg.dev/terraform-project-vm/ots-project-repo/ots-image
+  repository: us-central1-docker.pkg.dev/terraform-project-atserge1/ots-project-repo/ots-image
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -49,14 +49,14 @@ ingress:
     cert-manager.io/cluster-issuer: letsencrypt-prod-dns01
     acme.cert-manager.io/http01-edit-in-place: "true"
   hosts:
-    - host: ots.vikmin2022.de
+    - host: ots.domainawsnow.link
       paths:
         - path: /
           pathType: ImplementationSpecific
   tls: 
     - secretName: ots-tls
       hosts:
-        - ots.vikmin2022.de
+        - ots.domainawsnow.link
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
