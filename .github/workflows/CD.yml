@@ -29,7 +29,8 @@ jobs:
           terraform_version: 1.1.9
       - name: Exporting kubeconfig
         run: |
-          mkdir ${HOME}/.kube
+          echo $HOME
+          mkdir .kube
           echo ${{ secrets.KUBECONFIG }} | base64 --decode > ${HOME}/.kube/config
       - name: Terraform init
         run: |
