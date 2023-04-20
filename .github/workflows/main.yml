@@ -32,7 +32,7 @@ jobs:
     #         secrets/ots/main service_account_key | EASTPOST_SA_KEY ;
     #         secrets/ots/main project_id | ID_PROJECT ;
     - name: Setup Vault
-      uses: hashicorp/setup-vault@v1
+      uses: hashicorp/setup-vault@v1.0.2
       with:
         url: ${{ secrets.VAULT_ADDR }}
         token: ${{ secrets.VAULT_TOKEN }}
