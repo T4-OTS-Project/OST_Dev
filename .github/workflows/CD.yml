@@ -35,9 +35,9 @@ jobs:
       #     echo "${{ secrets }}"
 
       - name: Exporting kubeconfig
-        run: |
-          mkdir $HOME/.kube
-          echo ${{ secrets.KUBECONFIG }} | base64 --decode > $HOME/.kube/config
+      - id: 'kubeconfig'
+        run: 'mkdir ~/.kube && cat $KUBECONFIG > ~/.kube/config'
+      
       - name: Terraform init
         run: |
           cd deployment
