@@ -3,7 +3,7 @@ env:
   ID_PROJECT: terraform-project-atserge1
   PROJECT_REPO: ots-project-repo
 
-name: Test
+name: Deployment
 on:
   push:
     branches: [ atserge1 ]
@@ -13,31 +13,33 @@ jobs:
   deploy-to-kubernetes:
   - name: deploy to kuberbetes atserge1
     runs-on: ubuntu-latest
+    
     defualts:
       run:
         shell: bash
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-   
-   - uses: google-github-actions/setup-gcloud@v0
-      with:
-        service_account_key: ${{ secrets.ATSERGE_SA_KEY }}
-        project_id: ${{ secrets.ID_PROJECT }}
-        export_default_credentials: true
-    - uses: hashicorp/setup-terraform@v2
-      with:
-        terraform_version: 1.1.9
-    - name: Exporting kubeconfig
-      run: |
-        mkdir ${HOME}/.kube
-        echo ${{ secrets.KUBECONFIG }} | base64 --decode > ${HOME}/.kube/config
-            
-    - name: Terraorm init and 
-      run: |
-        cd deployment
-        terraform init
-    - name: Terraform apply
-      run: |
-        cd deployment
-        terraform apply -auto-approve -input=false
+      - name: Checkout
+        uses: actions/checkout@v2
+    
+      - uses: google-github-actions/setup-gcloud@v0
+        with:
+          service_account_key: ${{ secrets.ATSERGE_SA_KEY }}
+          project_id: ${{ secrets.ID_PROJECT }}
+          export_default_credentials: true
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.1.9
+      - name: Exporting kubeconfig
+        run: |
+          mkdir ${HOME}/.kube
+          echo ${{ secrets.KUBECONFIG }} | base64 --decode > ${HOME}/.kube/config
+              
+      - name: Terraorm init and 
+        run: |
+          cd deployment
+          terraform init
+      - name: Terraform apply
+        run: |
+          cd deployment
+          terraform apply -auto-approve -input=false
