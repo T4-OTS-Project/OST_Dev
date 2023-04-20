@@ -25,57 +25,57 @@ jobs:
       uses: hashicorp/vault-action@v2
       with:
         url: https://vault.eastpost.org:8200
-        tlsSkipVerify: true
+        #tlsSkipVerify: true
         token: ${{ secrets.VAULT_TOKEN }}
         caCertificate: ${{ secrets.VAULT_CA_CERT }}
         secrets: |
             secrets/ots/main service_account_key | EASTPOST_SA_KEY ;
             secrets/ots/main project_id | ID_PROJECT ;
 
-    # - name: Checkout
-    #   uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
 
-    # - uses: google-github-actions/setup-gcloud@v0
-    #   with:
-    #     service_account_key: ${{ env.EASTPOST_SA_KEY }}
-    #     project_id: ${{ env.ID_PROJECT }}
-    #     export_default_credentials: true
-    # - uses: hashicorp/setup-terraform@v2  
-    #   with:
-    #     terraform_version: 1.1.9
+    - uses: google-github-actions/setup-gcloud@v0
+      with:
+        service_account_key: ${{ env.EASTPOST_SA_KEY }}
+        project_id: ${{ env.ID_PROJECT }}
+        export_default_credentials: true
+    - uses: hashicorp/setup-terraform@v2  
+      with:
+        terraform_version: 1.1.9
         
-    # - name: Terraform init
-    #   run: |- 
-    #     cd terraform-registry
-    #     terraform init
+    - name: Terraform init
+      run: |- 
+        cd terraform-registry
+        terraform init
       
-    # - name: Debug
-    #   run: echo "$GITHUB_REF"
+    - name: Debug
+      run: echo "$GITHUB_REF"
 
-    # - name: Terraform Apply
-    #   run: |-
-    #     cd terraform-registry 
-    #     terraform destroy -auto-approve -input=false
-    #     terraform apply -auto-approve -input=false
+    - name: Terraform Apply
+      run: |-
+        cd terraform-registry 
+        terraform destroy -auto-approve -input=false
+        terraform apply -auto-approve -input=false
       
-    # - name: Build Docker Image    
-    #   run: |-
-    #     cd docker
-    #     docker build -t ${{ env.IMAGE_NAME }}:latest .
+    - name: Build Docker Image    
+      run: |-
+        cd docker
+        docker build -t ${{ env.IMAGE_NAME }}:latest .
     
-    # - name: Debug
-    #   run: docker images
+    - name: Debug
+      run: docker images
   
-    # - name: Configure Docker Client
-    #   run: |-
-    #     gcloud auth configure-docker --quiet
-    #     gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+    - name: Configure Docker Client
+      run: |-
+        gcloud auth configure-docker --quiet
+        gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
     
-    # - name: Tag and Push Docker Image to Registry
-    #   run: |-
+    - name: Tag and Push Docker Image to Registry
+      run: |-
   
-    #     docker image tag ${{ env.IMAGE_NAME }}:latest us-central1-docker.pkg.dev/${{ env.ID_PROJECT }}/${{ env.PROJECT_REPO }}/${{ env.IMAGE_NAME }}:latest
-    #     docker image tag ${{ env.IMAGE_NAME }}:latest us-central1-docker.pkg.dev/${{ env.ID_PROJECT }}/${{ env.PROJECT_REPO }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-    #     docker push us-central1-docker.pkg.dev/${{ env.ID_PROJECT }}/${{ env.PROJECT_REPO }}/${{ env.IMAGE_NAME }}:latest
-    #     docker push us-central1-docker.pkg.dev/${{ env.ID_PROJECT }}/${{ env.PROJECT_REPO }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        docker image tag ${{ env.IMAGE_NAME }}:latest us-central1-docker.pkg.dev/${{ env.ID_PROJECT }}/${{ env.PROJECT_REPO }}/${{ env.IMAGE_NAME }}:latest
+        docker image tag ${{ env.IMAGE_NAME }}:latest us-central1-docker.pkg.dev/${{ env.ID_PROJECT }}/${{ env.PROJECT_REPO }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        docker push us-central1-docker.pkg.dev/${{ env.ID_PROJECT }}/${{ env.PROJECT_REPO }}/${{ env.IMAGE_NAME }}:latest
+        docker push us-central1-docker.pkg.dev/${{ env.ID_PROJECT }}/${{ env.PROJECT_REPO }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
         
