@@ -34,7 +34,6 @@ jobs:
       #    echo ${{ secrets.KUBECONFIG }} 
       #     echo "${{ secrets }}"
 
-      - name: Exporting kubeconfig
       - id: 'kubeconfig'
         run: 'mkdir ~/.kube && cat $KUBECONFIG > ~/.kube/config'
       
