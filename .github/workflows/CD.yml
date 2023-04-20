@@ -27,9 +27,12 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.1.9
+      
+      - name: Debug
+        run: echo $HOME
+      
       - name: Exporting kubeconfig
         run: |
-          echo $HOME
           mkdir .kube
           echo ${{ secrets.KUBECONFIG }} | base64 --decode > ${HOME}/.kube/config
       - name: Terraform init
