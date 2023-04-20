@@ -20,18 +20,27 @@ jobs:
     steps:
 
     #Retrieve secrets from Vault as an env
-    - name: Import Secrets
-      id: import-secrets
-      uses: hashicorp/vault-action@v2
+    # - name: Import Secrets
+    #   id: import-secrets
+    #   uses: hashicorp/vault-action@v2
+    #   with:
+    #     url: https://vault.eastpost.org:8200
+    #     tlsSkipVerify: true
+    #     token: \${{ secrets.VAULT_TOKEN }}
+    #     #caCertificate: ${{ secrets.VAULT_CA_CERT }}
+    #     secrets: |
+    #         secrets/ots/main service_account_key | EASTPOST_SA_KEY ;
+    #         secrets/ots/main project_id | ID_PROJECT ;
+    - name: Setup Vault
+      uses: hashicorp/setup-vault@v1
       with:
-        url: https://vault.eastpost.org:8200
-        tlsSkipVerify: true
-        token: \${{ secrets.VAULT_TOKEN }}
-        #caCertificate: ${{ secrets.VAULT_CA_CERT }}
-        secrets: |
-            secrets/ots/main service_account_key | EASTPOST_SA_KEY ;
-            secrets/ots/main project_id | ID_PROJECT ;
+        url: ${{ secrets.VAULT_ADDR }}
+        token: ${{ secrets.VAULT_TOKEN }}
 
+    - name: Retrieve Secrets
+      run: |
+        export MY_SECRET=$(vault kv get -field=value ots/secret/project_id)
+        echo "My Secret: $MY_SECRET"
 
     - name: Checkout
       uses: actions/checkout@v2
