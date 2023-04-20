@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "ots-chart.fullname" . }}-test-connection"
+  labels:
+    {{- include "ots-chart.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "ots-chart.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
