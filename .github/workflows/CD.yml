@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 jobs:
   deploy-to-kubernetes:
-    name: deploy to kuberbetes atserge1
+  - name: deploy to kuberbetes atserge1
     runs-on: ubuntu-latest
     defualts:
       run:
