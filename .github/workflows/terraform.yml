@@ -20,7 +20,7 @@ jobs:
       - name: Configure GCP credentials
         uses: google-github-actions/setup-gcloud@v0.3.2
         with:
-          service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+          service_account_key: ${{ secrets.ATSERGE_SA_KEY }}
           project_id: ${{ secrets.ID_PROJECT }}
 
       - name: Initialize Terraform code
