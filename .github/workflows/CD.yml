@@ -28,11 +28,11 @@ jobs:
         with:
           terraform_version: 1.1.9
       
-      - name: Debug secrets context
-        run: |
-          echo "Hello"
-          echo ${{ secrets.KUBECONFIG }} 
-          echo "${{ secrets }}"
+      # - name: Debug secrets context
+      #   run: |
+      #     echo "Hello"
+      #    echo ${{ secrets.KUBECONFIG }} 
+      #     echo "${{ secrets }}"
 
       - name: Exporting kubeconfig
         run: |
