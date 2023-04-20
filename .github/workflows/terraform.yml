@@ -3,7 +3,7 @@ name: Terraform Check
 on:
   push:
     branches:
-      - Vika
+      - main
 
 jobs:
   terraform-check:
