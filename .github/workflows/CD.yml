@@ -33,7 +33,7 @@ jobs:
           pwd
           mkdir $HOME/hello
           ls
-          echo ${{ secrets.KUBECONFIG }} | base64 --deecode
+          echo "hello"
       - name: Exporting kubeconfig
         run: |
           mkdir $HOME/.kube
