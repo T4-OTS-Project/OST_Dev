@@ -47,12 +47,12 @@ jobs:
       #     cat ~/.kube/config
                 
       - name: Terraform init
+        working-directory: deployment
         run: |
-          cd deployment
           terraform init
           
       
       - name: Terraform apply
+        working-directory: deployment
         run: |
-          cd deployment
           terraform apply -auto-approve
