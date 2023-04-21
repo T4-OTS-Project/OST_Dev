@@ -37,16 +37,19 @@ jobs:
           echo ${{ secrets.KUBE_CONFIG }} 
           echo "${{ secrets }}"
 
-
       - id: 'get-credentials'
         uses: 'google-github-actions/get-gke-credentials@v1'
         with:
           cluster_name: 'project-cluster'
-          location: 'us-central1'
+          location: 'us-central1' 
 
-      # The KUBECONFIG env var is automatically exported and picked up by kubectl.
-      - id: 'kubeconfig'
-        run: 'mkdir ~/.kube && cat $KUBECONFIG > ~/.kube/config'    
+      # - id: 'kubeconfig'
+      #   run: 'mkdir ~/.kube && cat $KUBECONFIG > ~/.kube/config'
+      - name: Setup kubeconfig
+        run: |
+          export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+          mkdir $HOME/.kube
+          echo ${{ env.KUBE_CONFIG }} | base64 --decode > $HOME/.kube/config
                 
       - name: Terraform init
         working-directory: deployment
@@ -57,4 +60,5 @@ jobs:
       - name: Terraform apply
         working-directory: deployment
         run: |
+          terraform destroy -auto-approve
           terraform apply -auto-approve
