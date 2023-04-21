@@ -48,12 +48,12 @@ jobs:
         run: |
           cd deployment
           terraform init
-      - name: Setup gcloud
-        uses: google-github-actions/setup-gcloud@v0
+          
+      - id: 'get-credentials'
+        uses: 'google-github-actions/get-gke-credentials@v1'
         with:
-          service_account_key: ${{ secrets.ATSERGE_SA_KEY }}
-          project_id: ${{ env.ID_PROJECT }}
-          export_default_credentials: true
+          cluster_name: 'project-cluster'
+          location: 'us-central1'
       
       - name: Terraform apply
         run: |
