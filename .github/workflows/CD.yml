@@ -18,12 +18,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      
       - name: Setup gcloud
         uses: google-github-actions/setup-gcloud@v0
         with:
           service_account_key: ${{ secrets.ATSERGE_SA_KEY }}
-          project_id: ${{ secrets.ID_PROJECT }}
+          project_id: ${{ env.ID_PROJECT }}
           export_default_credentials: true
+      
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
