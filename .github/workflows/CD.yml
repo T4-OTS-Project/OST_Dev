@@ -50,7 +50,11 @@ jobs:
           terraform init
 
       - name: Terraform apply
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          service_account_key: ${{ secrets.ATSERGE_SA_KEY }}
+          project_id: ${{ env.ID_PROJECT }}
+          export_default_credentials: true
         run: |
           cd deployment
           terraform apply -auto-approve
-          
