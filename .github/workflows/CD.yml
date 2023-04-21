@@ -42,7 +42,7 @@ jobs:
       - name: Setup kubeconfig
         run: |
           mkdir $HOME/.kube
-          echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > $HOME/.kube/config
+          echo ${{ env.KUBE_CONFIG }} | base64 --decode > $HOME/.kube/config
           cat ~/.kube/config
                 
       - name: Terraform init
