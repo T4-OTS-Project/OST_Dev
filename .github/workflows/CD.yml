@@ -64,5 +64,5 @@ jobs:
       - name: Terraform apply
         working-directory: deployment
         run: |
-          terraform destroy -auto-approve
+          
           terraform apply -auto-approve
