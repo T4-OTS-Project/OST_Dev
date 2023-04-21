@@ -39,7 +39,7 @@ jobs:
 
       # - id: 'kubeconfig'
       #   run: 'mkdir ~/.kube && cat $KUBECONFIG > ~/.kube/config'
-      - name:
+      - name: Setup kubeconfig
         run: |
           mkdir $HOME/.kube
           echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > $HOME/.kube/config
