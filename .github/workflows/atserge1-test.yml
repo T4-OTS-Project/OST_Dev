@@ -6,7 +6,7 @@ env:
 name: Test
 on:
   push:
-    branches: [ never ]
+    branches: [ atserge1 ]
     
   workflow_dispatch:
 jobs:
