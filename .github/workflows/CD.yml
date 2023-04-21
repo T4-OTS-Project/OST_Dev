@@ -37,14 +37,14 @@ jobs:
           echo ${{ secrets.KUBE_CONFIG }} 
           echo "${{ secrets }}"
 
-      # - id: 'kubeconfig'
-      #   run: 'mkdir ~/.kube && cat $KUBECONFIG > ~/.kube/config'
-      - name: Setup kubeconfig
-        run: |
-          export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-          mkdir $HOME/.kube
-          echo ${{ env.KUBE_CONFIG }} | base64 --decode > $HOME/.kube/config
-          cat ~/.kube/config
+      - id: 'kubeconfig'
+        run: 'mkdir ~/.kube && cat $KUBECONFIG > ~/.kube/config'
+      # - name: Setup kubeconfig
+      #   run: |
+      #     export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+      #     mkdir $HOME/.kube
+      #     echo ${{ env.KUBE_CONFIG }} | base64 --decode > $HOME/.kube/config
+      #     cat ~/.kube/config
                 
       - name: Terraform init
         run: |
