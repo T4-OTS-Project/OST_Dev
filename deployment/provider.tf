@@ -1,5 +1,5 @@
 provider "google" {
-  project = var.PROJECT_ID
+  project = "terraform-project-atserge1"
 }
 
 provider "kubernetes" {
